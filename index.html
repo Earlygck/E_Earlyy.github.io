@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,29 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio Bro</title>
 <style>
-  /* Font et reset */
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Montserrat', sans-serif; background: #0d0d0d; color: #fff; }
+  body { font-family: 'Montserrat', sans-serif; background: #0d0d0d; color: #fff; overflow-x: hidden; }
 
-  /* Header */
   header { position: sticky; top: 0; background: #111; padding: 20px; text-align: center; z-index: 100; }
   header h1 { color: #00ffcc; }
 
-  /* Sections */
-  section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: all 1s ease; opacity: 0; transform: translateY(50px); }
-  section.visible { opacity: 1; transform: translateY(0); }
+  section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
 
-  /* Titles */
-  h2 { color: #00ffcc; margin-bottom: 20px; font-size: 2rem; }
+  h2, p { transition: opacity 1s, transform 1s; }
 
-  /* Images */
   img { max-width: 400px; width: 80%; margin: 20px 0; border-radius: 10px; transition: transform 0.5s; }
   img:hover { transform: scale(1.05) rotate(1deg); }
 
-  /* Lists */
   ul { list-style: none; }
   li::before { content: "• "; color: #00ffcc; }
+
+  footer { text-align: center; padding: 20px; background: #111; margin-top: 50px; }
+
 </style>
 </head>
 <body>
@@ -38,13 +33,13 @@
 </header>
 
 <section id="about">
-  <h2>À propos de moi</h2>
-  <p>Salut, je suis Bro. Passionné par les drones et la tech militaire.</p>
+  <h2 class="fade-text">À propos de moi</h2>
+  <p class="fade-text">Salut, je suis Bro. Passionné par les drones et la tech militaire.</p>
 </section>
 
 <section id="skills">
-  <h2>Compétences</h2>
-  <ul>
+  <h2 class="fade-text">Compétences</h2>
+  <ul class="fade-text">
     <li>Pilotage FPV</li>
     <li>Montage vidéo</li>
     <li>Maintenance drones</li>
@@ -53,9 +48,9 @@
 </section>
 
 <section id="projects">
-  <h2>Projets</h2>
-  <img src="https://via.placeholder.com/400x250.png?text=Drone+1" alt="Drone 1">
-  <img src="https://via.placeholder.com/400x250.png?text=Drone+2" alt="Drone 2">
+  <h2 class="fade-text">Projets</h2>
+  <img src="https://via.placeholder.com/400x250.png?text=Drone+1" alt="Drone 1" class="fade-text">
+  <img src="https://via.placeholder.com/400x250.png?text=Drone+2" alt="Drone 2" class="fade-text">
 </section>
 
 <footer>
@@ -63,14 +58,21 @@
 </footer>
 
 <script>
-  // Effet scroll : fade-in
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) entry.target.classList.add('visible');
+  const fadeTexts = document.querySelectorAll('.fade-text');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    fadeTexts.forEach(el => {
+      const offset = el.offsetTop;
+      const distance = offset - scrollY;
+      if(distance < 400) { // zone d'effet
+        el.style.opacity = Math.max(distance/400,0);
+        el.style.transform = `translateY(${(1 - distance/400) * 50}px)`;
+      } else {
+        el.style.opacity = 1;
+        el.style.transform = `translateY(0px)`;
+      }
     });
-  }, { threshold: 0.2 });
-  sections.forEach(sec => observer.observe(sec));
+  });
 </script>
 
 </body>
