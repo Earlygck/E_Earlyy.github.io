@@ -3,76 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio Bro</title>
+<title>Portfolio Intro</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Montserrat', sans-serif; background: #0d0d0d; color: #fff; overflow-x: hidden; }
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-  header { position: sticky; top: 0; background: #111; padding: 20px; text-align: center; z-index: 100; }
-  header h1 { color: #00ffcc; }
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0d0d0d;
+  font-family: 'Pacifico', cursive;
+}
 
-  section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+/* Splash screen */
+#splash {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
 
-  h2, p { transition: opacity 1s, transform 1s; }
+#splash h1 {
+  color: #fff;
+  font-size: 8rem;
+  text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc, 0 0 60px #00ffcc;
+  cursor: pointer;
+  transition: transform 1s cubic-bezier(0.77,0,0.175,1), 
+              opacity 1s cubic-bezier(0.77,0,0.175,1);
+  user-select: none; /* empêche la sélection du texte */
+}
 
-  img { max-width: 400px; width: 80%; margin: 20px 0; border-radius: 10px; transition: transform 0.5s; }
-  img:hover { transform: scale(1.05) rotate(1deg); }
 
-  ul { list-style: none; }
-  li::before { content: "• "; color: #00ffcc; }
+/* Site derrière */
+#main {
+  min-height: 100vh;
+  background: #0d0d0d;
+  color: #00ffcc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
 
-  footer { text-align: center; padding: 20px; background: #111; margin-top: 50px; }
+#main.visible {
+  opacity: 1;
+}
 
+/* Effet au clic */
+#splash.clicked h1 {
+  transform: scale(2) translateY(-200px) rotate(-15deg);
+  opacity: 0;
+}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Bro Drone Portfolio</h1>
-</header>
+<div id="splash">
+  <h1>J.</h1>
+</div>
 
-<section id="about">
-  <h2 class="fade-text">À propos de moi</h2>
-  <p class="fade-text">Salut, je suis Bro. Passionné par les drones et la tech militaire.</p>
-</section>
-
-<section id="skills">
-  <h2 class="fade-text">Compétences</h2>
-  <ul class="fade-text">
-    <li>Pilotage FPV</li>
-    <li>Montage vidéo</li>
-    <li>Maintenance drones</li>
-    <li>Programmation basique</li>
-  </ul>
-</section>
-
-<section id="projects">
-  <h2 class="fade-text">Projets</h2>
-  <img src="https://via.placeholder.com/400x250.png?text=Drone+1" alt="Drone 1" class="fade-text">
-  <img src="https://via.placeholder.com/400x250.png?text=Drone+2" alt="Drone 2" class="fade-text">
-</section>
-
-<footer>
-  <p>&copy; test Bro</p>
-</footer>
+<div id="main">
+  <h2>Bienvenue sur mon portfolio</h2>
+  <p>Le contenu principal apparaît ici après la transition.</p>
+</div>
 
 <script>
-  const fadeTexts = document.querySelectorAll('.fade-text');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    fadeTexts.forEach(el => {
-      const offset = el.offsetTop;
-      const distance = offset - scrollY;
-      if(distance < 400) { // zone d'effet
-        el.style.opacity = Math.max(distance/400,0);
-        el.style.transform = `translateY(${(1 - distance/400) * 50}px)`;
-      } else {
-        el.style.opacity = 1;
-        el.style.transform = `translateY(0px)`;
-      }
-    });
-  });
+const splash = document.getElementById('splash');
+const main = document.getElementById('main');
+
+splash.addEventListener('click', () => {
+  splash.classList.add('clicked');
+  main.classList.add('visible');
+
+  // Supprime le splash après la transition
+  setTimeout(() => {
+    splash.style.display = 'none';
+  }, 1000); // correspond à la transition
+});
 </script>
 
 </body>
