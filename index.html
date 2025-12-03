@@ -1,98 +1,77 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Bro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: #0d0d0d;
-      color: #fff;
-    }
-    header {
-      background: #1a1a1a;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      color: #00ffcc;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    section {
-      padding: 50px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    h2 {
-      color: #00ffcc;
-      margin-bottom: 20px;
-    }
-    p, li {
-      line-height: 1.6;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li::before {
-      content: "• ";
-      color: #00ffcc;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #1a1a1a;
-      margin-top: 50px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Bro</title>
+<style>
+  /* Font et reset */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Montserrat', sans-serif; background: #0d0d0d; color: #fff; }
+
+  /* Header */
+  header { position: sticky; top: 0; background: #111; padding: 20px; text-align: center; z-index: 100; }
+  header h1 { color: #00ffcc; }
+
+  /* Sections */
+  section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: all 1s ease; opacity: 0; transform: translateY(50px); }
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  /* Titles */
+  h2 { color: #00ffcc; margin-bottom: 20px; font-size: 2rem; }
+
+  /* Images */
+  img { max-width: 400px; width: 80%; margin: 20px 0; border-radius: 10px; transition: transform 0.5s; }
+  img:hover { transform: scale(1.05) rotate(1deg); }
+
+  /* Lists */
+  ul { list-style: none; }
+  li::before { content: "• "; color: #00ffcc; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Bro Drone Portfolio</h1>
-    <nav>
-      <a href="#about">Moi</a>
-      <a href="#skills">Compétences</a>
-      <a href="#projects">Projets</a>
-    </nav>
-  </header>
 
-  <section id="about">
-    <h2>À propos de moi</h2>
-    <p>Salut, je suis Bro. Passionné par les drones, la tech et tout ce qui touche à la précision militaire. Je crée et pilote mes propres projets FPV.</p>
-  </section>
+<header>
+  <h1>Bro Drone Portfolio</h1>
+</header>
 
-  <section id="skills">
-    <h2>Compétences</h2>
-    <ul>
-      <li>Pilotage FPV</li>
-      <li>Montage vidéo</li>
-      <li>Maintenance et réglages drones</li>
-      <li>Programmation basique</li>
-    </ul>
-  </section>
+<section id="about">
+  <h2>À propos de moi</h2>
+  <p>Salut, je suis Bro. Passionné par les drones et la tech militaire.</p>
+</section>
 
-  <section id="projects">
-    <h2>Projets</h2>
-    <p>Voici quelques projets que j’ai réalisés avec mes drones :</p>
-    <ul>
-      <li>Vidéo FPV dans les montagnes</li>
-      <li>Mapping aérien avec drone</li>
-      <li>Projet de suivi automatique cible</li>
-    </ul>
-  </section>
+<section id="skills">
+  <h2>Compétences</h2>
+  <ul>
+    <li>Pilotage FPV</li>
+    <li>Montage vidéo</li>
+    <li>Maintenance drones</li>
+    <li>Programmation basique</li>
+  </ul>
+</section>
 
-  <footer>
-    &copy; 2025 Bro - Portfolio Drone
-  </footer>
+<section id="projects">
+  <h2>Projets</h2>
+  <img src="https://via.placeholder.com/400x250.png?text=Drone+1" alt="Drone 1">
+  <img src="https://via.placeholder.com/400x250.png?text=Drone+2" alt="Drone 2">
+</section>
+
+<footer>
+  <p>&copy; 2025 Bro</p>
+</footer>
+
+<script>
+  // Effet scroll : fade-in
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(sec => observer.observe(sec));
+</script>
+
 </body>
 </html>
