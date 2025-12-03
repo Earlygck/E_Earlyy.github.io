@@ -12,7 +12,7 @@ body, html {
 
 /* Splash screen */
 #splash {
-  position: fixed;
+  position: absolute;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
@@ -21,13 +21,19 @@ body, html {
   justify-content: center;
   align-items: center;
   z-index: 10;
+   animation: float 3s ease-in-out infinite;
 }
-
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
 #splash h1 {
   font-size: 8rem;
   color: #fff;
   text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc, 0 0 60px #00ffcc;
   cursor: pointer;
+  pointer-events: none;
   transition: transform 1s cubic-bezier(0.77,0,0.175,1),
               opacity 1s cubic-bezier(0.77,0,0.175,1);
   user-select: none;
